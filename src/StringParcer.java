@@ -1,7 +1,8 @@
+import java.io.IOException;
 import java.util.*;
 
 public class StringParcer {
-    public String parseString(String string) {
+    public String parseString(String string) throws IOException {
         Calculator calculator = new Calculator();
         Map<String, Integer> arabicDigits = initArabicDigits();
         Map<Integer, String> romeDigits = initRomeDigits();
@@ -9,6 +10,11 @@ public class StringParcer {
         int result = 0;
         String[] strings = string.split(" ");
         List<String> list = Arrays.asList(strings);
+
+        if ((isRomeDigit(list.get(0), romeDigits) && !isRomeDigit(list.get(2), romeDigits)) ||
+                (!isRomeDigit(list.get(0), romeDigits) && isRomeDigit(list.get(2), romeDigits))) {
+            throw new IOException();
+        }
 
         if (list.get(1).equals("+")) {
             result = calculator.add(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
@@ -26,7 +32,7 @@ public class StringParcer {
             result = calculator.divide(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
         }
 
-        if (isRome(list.get(0), list.get(2), romeDigits)) {
+        if (isRomeDigit(list.get(0), romeDigits) && isRomeDigit(list.get(2), romeDigits)) {
             return romeDigits.get(result);
         }
 
@@ -71,8 +77,8 @@ public class StringParcer {
         return map;
     }
 
-    private boolean isRome(String firstDigit, String secondDigits, Map<Integer, String> map) {
-        if (map.containsValue(firstDigit) && map.containsValue(secondDigits)) {
+    private boolean isRomeDigit(String digit, Map<Integer, String> map) {
+        if (map.containsValue(digit)) {
             return true;
         }
 
