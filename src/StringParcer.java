@@ -16,20 +16,29 @@ public class StringParcer {
             throw new IOException();
         }
 
-        if (list.get(1).equals("+")) {
-            result = calculator.add(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
-        }
+        if (list.get(1).equals("+") ||
+            list.get(1).equals("-") ||
+            list.get(1).equals("*") ||
+            list.get(1).equals("/")) {
 
-        if (list.get(1).equals("-")) {
-            result = calculator.subtract(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
-        }
+            if (list.get(1).equals("+")) {
+                result = calculator.add(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
+            }
 
-        if (list.get(1).equals("*")) {
-            result = calculator.multiply(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
-        }
+            if (list.get(1).equals("-")) {
+                result = calculator.subtract(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
+            }
 
-        if (list.get(1).equals("/")) {
-            result = calculator.divide(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
+            if (list.get(1).equals("*")) {
+                result = calculator.multiply(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
+            }
+
+            if (list.get(1).equals("/")) {
+                result = calculator.divide(arabicDigits.get(list.get(0)), arabicDigits.get(list.get(2)));
+            }
+
+        } else {
+            throw new IOException();
         }
 
         if (isRomeDigit(list.get(0), romeDigits) && isRomeDigit(list.get(2), romeDigits)) {
