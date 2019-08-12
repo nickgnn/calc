@@ -94,7 +94,7 @@ public class StringParcer {
         return false;
     }
 
-    private String convertToRomeDigits(int Int) {
+    private String convertToRomeDigits(int num) {
         LinkedHashMap<String, Integer> romeDigits = new LinkedHashMap<>();
 
         romeDigits.put("M", 1000);
@@ -114,9 +114,9 @@ public class StringParcer {
         String result = "";
 
         for(Map.Entry<String, Integer> entry : romeDigits.entrySet()){
-            int matches = Int/entry.getValue();
+            int matches = num/entry.getValue();
             result += repeat(entry.getKey(), matches);
-            Int = Int % entry.getValue();
+            num = num % entry.getValue();
         }
 
         return result;
